@@ -1,5 +1,11 @@
 from flask import Flask
+
+import db_helper as database
+import shodan_helper as sh
+
 app = Flask(__name__)
+
+db, curs = database.connect()
 
 @app.route('/')
 def hello():
@@ -25,6 +31,12 @@ def api_port(port):
 def address(ip):
     return "{}".format(ip)
 
+    
+@app.route('/color/<ip>')
+def starred(ip):
+    marker_color = database.get_color(db, curs, ip)
+    return '<html><body style="background:{};"></body></html>'.format(marker_color)
+    
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3306)
