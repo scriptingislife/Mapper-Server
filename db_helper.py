@@ -26,6 +26,22 @@ def get_value(db, cursor, table, column, variable, where):
 
 
 #
+# Get a sensor name given an IP address.
+# Returns 'host' where an IP matches.
+#
+def get_sensor(db, cursor, ip):
+    cursor.execute("SELECT host FROM attempts WHERE ip = '{}';".format(ip))
+    host = cursor.fetchone()
+    if host is None:
+        return None
+    else:
+        host = host[0]
+        if host is None:
+            return None
+        else:
+            return host
+
+#
 # Get the success of an IP address
 # TODO: Success is in multiple attempts. Compare success:failure ratio maybe.
 #

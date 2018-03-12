@@ -1,3 +1,12 @@
+#
+# Draw maps using Folium and write to an html file.
+# Author: N. Beckstead
+#
+# TODO: Debug when a marker field is None.
+# TODO: Draw heatmap using log_mapper.attempts table.
+# TODO: Optimize by looking up geo data first. Then call make_marker()
+#
+
 import folium
 import db_helper as database
 import geo_helper as geo
@@ -14,7 +23,7 @@ def draw():
     markers_map = folium.Map(location=[24.635246, 2.616971], zoom_start=3, tiles='CartoDB dark_matter')
     #folium_heatmap = folium.Map(location=[24.635246, 2.616971], zoom_start=3, tiles='CartoDB positron')
     
-    curs.execute("SELECT ip from log_mapper.markers;")
+    curs.execute("SELECT ip from log_mapper.markers ORDER BY ip ASC;")
     list_ips = curs.fetchall()
     for ip_tup in list_ips:
         if ip_tup[0] is None:
@@ -37,6 +46,8 @@ def make_marker(map_obj, ip):
     if marker is None:
         return None
         
+    host = database.get_sensor(db, curs, ip)
+        
     success = database.get_success(db, curs, ip)
     if success is None:
         success = "Unknown"
@@ -48,6 +59,7 @@ def make_marker(map_obj, ip):
         success = "Unknown"
     
     popup_text = """<a href=\"https://www.shodan.io/host/{}\" target=\"_blank\">{}</a><br>
+                Sensor: {}<br>
                 Success: {}<br>
                 Country: {}<br>
                 Continent: {}<br>
@@ -56,7 +68,7 @@ def make_marker(map_obj, ip):
     
     # TODO: Print debug message if a field in marker is None            
     
-    popup_text = popup_text.format(ip, ip, success, marker.country, marker.continent, marker.location[0], marker.location[1])
+    popup_text = popup_text.format(ip, ip, host, success, marker.country, marker.continent, marker.location[0], marker.location[1])
     
     marker_color = database.get_color(db, curs, ip)
     

@@ -1,4 +1,14 @@
+#
+# Flask server for frontend.
+# Author: N. Beckstead
+# TODO: Implement API
+# TODO: Display maps
+# TODO: Get statistics
+# TODO: Interactive search.
+#
+
 from flask import Flask
+#from flask.ext.jsonpify import jsonify
 
 import db_helper as database
 import shodan_helper as sh
@@ -29,7 +39,7 @@ def api_port(port):
     
 @app.route('/ip/<ip>')
 def address(ip):
-    return "{}".format(ip)
+    return sh.lookup_host(str(ip))
 
     
 @app.route('/color/<ip>')
