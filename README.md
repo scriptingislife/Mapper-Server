@@ -9,11 +9,14 @@ Log Mapper server which pulls from a MySQL database.
 
 ### Setup
 
-#### `server_vars.py` Configuration
-Enter database credentials
+#### Configuration
+All variables are in `server_vars.py`.
+Enter database credentials.
 Add [Shodan](https://shodan.io) API key.
 
 #### Daemon
 Edit variables in `mapper-server` service file.
+
 `sudo mv mapper-server /etc/init.d/`
+
 `sudo service mapper-server start`
