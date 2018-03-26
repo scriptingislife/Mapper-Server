@@ -1,8 +1,6 @@
 # Log Mapper specific
-server_vars.py
 maps/
-*.log
-#*.html
+server_vars.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
