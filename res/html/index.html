@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Map of Attempted SSH Logins</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <style>
+            body {
+                position: fixed;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+            #map-frame {
+                width: 100%;
+                height: 90%;
+            }
+            #ic-refresh {
+                margin: 0 auto;
+                height: 40px;
+                width: auto;
+            }
+            .refresh {
+                padding-top: 20px;
+                padding-bottom: 5px;
+                vertical-align: middle;
+                float: left;
+            }
+        </style>
+        <script>
+            function refreshMap(){
+                document.getElementById("map-frame").contentDocument.location.reload(true);
+            }
+            function changeSource(source){
+                document.getElementById("map-frame").src = source;
+            }
+            
+            function get_total_attempts() {
+                var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                     document.getElementById("total_logins").innerHTML = this.responseText;
+                    }
+                 };
+                 xhttp.open("GET", "api/stats/total-attempts", true);
+                 xhttp.send();
+            }
+            
+            function get_total_ips() {
+                 var xhttp = new XMLHttpRequest();
+                  xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                     document.getElementById("total_ips").innerHTML = this.responseText;
+                    }
+                  };
+                  xhttp.open("GET", "api/stats/total-ips", true);
+                  xhttp.send();
+            }
+            
+            function init_function() {
+                get_total_attempts();
+                get_total_ips();
+            }
+            
+            window.onload = init_function
+        </script>
+    </head>
+    <body>
+        <h1>Map of Attempted SSH Logins</h1>
+        <table class="w3-table w3-striped w3-border w3-centered">
+            <tr><th>Attempted Logins</th><th>Unique IP Addresses</th></tr>
+            <tr><td id='total_logins'>0</td><td id='total_ips'>0</td></tr>
+        </table>
+        <div height>
+            <img class="refresh" id="ic-refresh" src="res/img/refresh.svg" onclick="refreshMap()" />
+            <!--<p class="refresh">Refresh</p>-->
+            <button onclick="changeSource('res/html/maps/heatmap.html')" style="float: right">Heatmap</button>
+            <button onclick="changeSource('res/html/maps/markers.html')" style="float: right">Circle Markers</button>
+        </div>
+        <iframe id="map-frame" src="res/html/maps/markers.html"></iframe>
+    </body>
+</html>

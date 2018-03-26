@@ -26,6 +26,14 @@ def get_value(db, cursor, table, column, variable, where):
 
 
 #
+# Get a specified number of recent attempts
+# Returns all data about recent attempts
+#
+def get_recent(db, cursor, num):
+    cursor.execute("SELECT * FROM attempts ORDER BY id DESC LIMIT {};".format(num))
+    return cursor.fetchall()
+
+#
 # Get a sensor name given an IP address.
 # Returns 'host' where an IP matches.
 #
@@ -109,6 +117,34 @@ def get_color(db, cursor, ip):
         else:
             return server_vars.COL_DEFAULT
 
+
+################### STATS ###################
+
+#
+# Get total attempts
+#
+def get_total_attempts(db, cursor):
+    cursor.execute("SELECT COUNT(*) FROM attempts;")
+    return int(cursor.fetchone()[0])
+
+#
+# Get total IP addresses
+#
+def get_total_ips(db, cursor):
+    cursor.execute("SELECT COUNT(ip) FROM markers;")
+    return int(cursor.fetchone()[0])
+
+#
+# Get IP with most attempts
+#
+
+#
+# Get country with most attempts
+#
+
+#
+# 
+#
 
 if __name__ == '__main__':
     db, cur = connect()

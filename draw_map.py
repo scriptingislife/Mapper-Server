@@ -21,7 +21,7 @@ db, curs = database.connect()
 def draw():
     
     markers_map = folium.Map(location=[24.635246, 2.616971], zoom_start=3, tiles='CartoDB dark_matter')
-    #folium_heatmap = folium.Map(location=[24.635246, 2.616971], zoom_start=3, tiles='CartoDB positron')
+    heatmap = folium.Map(location=[24.635246, 2.616971], zoom_start=3, tiles='CartoDB positron')
     
     curs.execute("SELECT ip from log_mapper.markers ORDER BY ip ASC;")
     list_ips = curs.fetchall()
@@ -35,6 +35,15 @@ def draw():
 
     markers_map.save(server_vars.MAP_LOCATION)
     
+    #curs.execute("SELECT * FROM attempts;")
+    #for attempt in curs.fetchall():
+    #    make_heatmap(heatmap)
+    
+#
+# Produce a heatmap from all attempts
+#
+def make_heatmap(map_obj):
+    pass
     
 #
 # Add a marker to a Folium map object
