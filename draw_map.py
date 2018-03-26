@@ -8,6 +8,7 @@
 #
 
 import folium
+from folium import plugins
 import db_helper as database
 import geo_helper as geo
 import server_vars
@@ -23,27 +24,43 @@ def draw():
     markers_map = folium.Map(location=[24.635246, 2.616971], zoom_start=3, tiles='CartoDB dark_matter')
     heatmap = folium.Map(location=[24.635246, 2.616971], zoom_start=3, tiles='CartoDB positron')
     
-    curs.execute("SELECT ip from log_mapper.markers ORDER BY ip ASC;")
-    list_ips = curs.fetchall()
-    for ip_tup in list_ips:
-        if ip_tup[0] is None:
-            continue
-        try:
-            make_marker(markers_map, str(ip_tup[0]))
-        except:
-            print("[*] Error with IP: {}".format(ip_tup[0]))
 
+    markers_map = make_markersmap(markers_map)
     markers_map.save(server_vars.MAP_LOCATION)
     
-    #curs.execute("SELECT * FROM attempts;")
-    #for attempt in curs.fetchall():
-    #    make_heatmap(heatmap)
+    heatmap = make_heatmap(heatmap)
+    heatmap.save(server_vars.HEATMAP_LOCATION)
     
 #
 # Produce a heatmap from all attempts
 #
 def make_heatmap(map_obj):
-    pass
+    curs.execute("SELECT ip FROM markers;")
+    addresses = [ip[0] for ip in curs.fetchall()]
+    points = list()
+    for ip in addresses:
+        curs.execute("SELECT COUNT(stamp) FROM attempts WHERE ip='{}'".format(ip))
+        attempts = int(curs.fetchone()[0])
+        marker = geo.lookup(ip)
+        if marker is None or marker.location is None:
+            continue
+        points.append([marker.location[0], marker.location[1], attempts])
+    folium.plugins.HeatMap(points, radius=12).add_to(map_obj)
+    return map_obj
+    
+
+def make_markermap(map_obj):
+    curs.execute("SELECT ip from log_mapper.markers ORDER BY INET_ATON(ip);")# ip ASC;")
+    list_ips = curs.fetchall()
+    for ip_tup in list_ips:
+        if ip_tup[0] is None:
+            continue
+        try:
+            make_marker(map_obj, str(ip_tup[0]))
+        except:
+            print("[*] Error with IP: {}".format(ip_tup[0]))
+    return map_obj
+    
     
 #
 # Add a marker to a Folium map object
@@ -67,7 +84,8 @@ def make_marker(map_obj, ip):
     else:
         success = "Unknown"
     
-    popup_text = """<a href=\"https://www.shodan.io/host/{}\" target=\"_blank\">{}</a><br>
+   # popup_text = """<a href=\"https://www.shodan.io/host/{}\" target=\"_blank\">{}</a><br>
+    popup_text = """<a href=\"/ip/{}\" target=\"_blank\">{}</a><br>
                 Sensor: {}<br>
                 Success: {}<br>
                 Country: {}<br>
