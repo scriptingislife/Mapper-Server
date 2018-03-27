@@ -11,8 +11,11 @@ Log Mapper server which pulls from a MySQL database.
 
 #### Configuration
 All variables are in `server_vars.py`.
+
 Enter database credentials.
+
 Add [Shodan](https://shodan.io) API key.
+
 
 #### Daemon
 Edit variables in `mapper-server` service file.

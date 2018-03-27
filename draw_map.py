@@ -13,8 +13,9 @@ import db_helper as database
 import geo_helper as geo
 import server_vars
 
-MARKER_RADIUS = 7
+MARKER_RADIUS = 4
 db, curs = database.connect()
+
 
 #
 # Main map function. Draw all maps.
@@ -25,31 +26,42 @@ def draw():
     heatmap = folium.Map(location=[24.635246, 2.616971], zoom_start=3, tiles='CartoDB positron')
     
 
-    markers_map = make_markersmap(markers_map)
-    markers_map.save(server_vars.MAP_LOCATION)
+  #  markers_map = make_markersmap(markers_map)
+  #  markers_map.save(server_vars.MAP_LOCATION)
     
     heatmap = make_heatmap(heatmap)
     heatmap.save(server_vars.HEATMAP_LOCATION)
+    
     
 #
 # Produce a heatmap from all attempts
 #
 def make_heatmap(map_obj):
-    curs.execute("SELECT ip FROM markers;")
+    curs.execute("SELECT ip FROM markers ORDER BY INET_ATON(ip);")
     addresses = [ip[0] for ip in curs.fetchall()]
     points = list()
+    max_attempts = "0.0.0", 0
     for ip in addresses:
         curs.execute("SELECT COUNT(stamp) FROM attempts WHERE ip='{}'".format(ip))
         attempts = int(curs.fetchone()[0])
         marker = geo.lookup(ip)
         if marker is None or marker.location is None:
+            print("Error with {}:{}".format(ip, attempts))
             continue
+       # print("Adding {}:{} to map.".format(ip, attempts))
+        if attempts > max_attempts[1]:
+            max_attempts = (ip, attempts)
+        #folium.CircleMarker(location=marker.location, radius=1, color=server_vars.COL_DEFAULT, fill=True).add_to(map_obj)
         points.append([marker.location[0], marker.location[1], attempts])
     folium.plugins.HeatMap(points, radius=12).add_to(map_obj)
+    print("Max attempts: {}:{}".format(max_attempts[0], max_attempts[1]))
     return map_obj
     
-
-def make_markermap(map_obj):
+    
+#
+# Function to make a map with circle markers.
+#
+def make_markersmap(map_obj):
     curs.execute("SELECT ip from log_mapper.markers ORDER BY INET_ATON(ip);")# ip ASC;")
     list_ips = curs.fetchall()
     for ip_tup in list_ips:

@@ -18,8 +18,6 @@ import geo_helper as geo
 import shodan_helper as sh
 
 app = Flask(__name__)
-
-db, curs = database.connect()
     
 ##################### API #####################
     
@@ -41,28 +39,38 @@ def api_port(port):
     
 @app.route('/api/recent/<num>')
 def api_recent(num):
+    db, curs = database.connect()
     recents = database.get_recent(db, curs, num)
     ret_str = ""
     for row in recents:
         ret_str += str(row)
         ret_str += '<br>'
+    db.close()
     return ret_str
     
     
 @app.route('/api/stats/totals')
 def api_totals():
+    db, curs = database.connect()
     total_attempts = database.get_total_attempts(db, curs)
     total_ips = database.get_total_ips(db, curs)
+    db.close()
     return "Total Attempts: {}<br>Total IPs: {}".format(total_attempts, total_ips)
 
 
 @app.route('/api/stats/total-attempts')
 def api_totalattempts():
-    return str(database.get_total_attempts(db, curs))
+    db, curs = database.connect()
+    ret_str = str(database.get_total_attempts(db, curs))
+    db.close()
+    return ret_str
 
 @app.route('/api/stats/total-ips')
 def apt_totalips():
-    return str(database.get_total_ips(db, curs))
+    db, curs = database.connect()
+    ret_str = str(database.get_total_ips(db, curs))
+    db.close()
+    return ret_str
 
 
 ##################### PAGES #####################
@@ -79,17 +87,19 @@ def address(ip):
     
     # Add interactive map
     lat, lon = geo.get_coordinates(str(ip))
-    ip_map = folium.Map(location=[lat, lon], zoom_start=10, tiles='CartoDB positron')
+    ip_map = folium.Map(location=[lat, lon], zoom_start=7, tiles='CartoDB positron')
     folium.Marker(location=(lat, lon)).add_to(ip_map)
-    #page += "<iframe style=\"height:20%; width:20%;\">"
+    page += "<div style=\"height:30%; width:30%;\">"
     page += str(ip_map.get_root().render())
-    #page += "</iframe>"
+    page += "</div>"
     return page
 
     
 @app.route('/color/<ip>')
 def starred(ip):
+    db, curs = database.connect()
     marker_color = database.get_color(db, curs, ip)
+    db.close()
     return '<html><body style="background:{};"></body></html>'.format(marker_color)
     
 @app.route('/recent/')
