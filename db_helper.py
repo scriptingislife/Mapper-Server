@@ -30,7 +30,7 @@ def get_value(db, cursor, table, column, variable, where):
 # Returns all data about recent attempts
 #
 def get_recent(db, cursor, num):
-    cursor.execute("SELECT * FROM attempts ORDER BY id DESC LIMIT {};".format(num))
+    cursor.execute("SELECT * FROM attempts ORDER BY stamp DESC LIMIT {};".format(num))
     return cursor.fetchall()
 
 #

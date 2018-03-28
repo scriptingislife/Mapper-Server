@@ -37,7 +37,10 @@ def get_coordinates(ip):
         host = api.host(ip)
     except shodan.APIError:
         return None
-    for item in host['data']:
-        lat = item['latitude']
-        lon = item['longitude']
+    try:
+        for item in host['data']:
+            lat = item['latitude']
+            lon = item['longitude']
+    except KeyError:
+        return None
     return (lat, lon)

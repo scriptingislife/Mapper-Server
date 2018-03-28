@@ -2,8 +2,6 @@
 # Flask server for frontend.
 # Author: N. Beckstead
 # TODO: Implement API
-# TODO: Display maps
-# TODO: Get statistics
 # TODO: Interactive search.
 # TODO: Implement render_template instead of send_from_directory
 #
@@ -102,9 +100,23 @@ def starred(ip):
     db.close()
     return '<html><body style="background:{};"></body></html>'.format(marker_color)
     
-@app.route('/recent/')
-def recent():
-    return send_from_directory('res/html', 'recent.html')
+@app.route('/recent/<num>')
+def recent(num):
+    db, curs = database.connect()
+    recents = database.get_recent(db, curs, num)
+    db.close()
+    
+    recent_map = folium.Map(location=[24.635246, 2.616971], zoom_start=2, tiles='CartoDB positron')
+    
+    for row in recents:
+        coords = geo.get_coordinates(row[2])
+        if coords is None:
+            continue
+        folium.Marker(location=coords).add_to(recent_map)
+        
+    recent_page = "<div style=\"height:50%; width:60%;\">" + str(recent_map.get_root().render()) + "</div>"
+    
+    return recent_page #send_from_directory('res/html', 'recent.html')
     
 ##################### RESOURCES #####################
 

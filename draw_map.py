@@ -26,8 +26,8 @@ def draw():
     heatmap = folium.Map(location=[24.635246, 2.616971], zoom_start=3, tiles='CartoDB positron')
     
 
-  #  markers_map = make_markersmap(markers_map)
-  #  markers_map.save(server_vars.MAP_LOCATION)
+    markers_map = make_markersmap(markers_map)
+    markers_map.save(server_vars.MAP_LOCATION)
     
     heatmap = make_heatmap(heatmap)
     heatmap.save(server_vars.HEATMAP_LOCATION)
