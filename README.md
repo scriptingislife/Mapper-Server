@@ -1,5 +1,5 @@
 # Mapper-Server
-Log Mapper server which pulls from a MySQL database.
+Map and visualize SSH logins from sensors.
 
 ## Introduction
 
