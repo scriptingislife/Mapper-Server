@@ -40,7 +40,7 @@ def make_heatmap(map_obj):
     curs.execute("SELECT ip FROM markers ORDER BY INET_ATON(ip);")
     addresses = [ip[0] for ip in curs.fetchall()]
     points = list()
-    max_attempts = "0.0.0", 0
+    max_attempts = "0.0.0.0", 0
     for ip in addresses:
         curs.execute("SELECT COUNT(stamp) FROM attempts WHERE ip='{}'".format(ip))
         attempts = int(curs.fetchone()[0])
@@ -78,7 +78,7 @@ def make_markersmap(map_obj):
 # Add a marker to a Folium map object
 #
 def make_marker(map_obj, ip):
-    print("Making marker for: {}".format(ip))
+    #print("Making marker for: {}".format(ip))
     
     marker = geo.lookup(ip)
     if marker is None:
@@ -97,17 +97,19 @@ def make_marker(map_obj, ip):
         success = "Unknown"
     
    # popup_text = """<a href=\"https://www.shodan.io/host/{}\" target=\"_blank\">{}</a><br>
-    popup_text = """<a href=\"/ip/{}\" target=\"_blank\">{}</a><br>
+    popup_text = """<a href=\"{}\" target=\"_blank\">{}</a><br>
                 Sensor: {}<br>
                 Success: {}<br>
                 Country: {}<br>
                 Continent: {}<br>
                 Latitude: {}<br>
-                Longitude: {}<br>"""
+                Longitude: {}<br>
+                <a href=\"https://shodan.io/host/{}\" target=\"_blank\">Shodan</a><br>
+                <a href=\"https://www.censys.io/ipv4/{}\" target=\"_blank\">Censys</a><br>
+                """
     
-    # TODO: Print debug message if a field in marker is None            
-    
-    popup_text = popup_text.format(ip, ip, host, success, marker.country, marker.continent, marker.location[0], marker.location[1])
+    # TODO: Print debug message if a field in marker is None
+    popup_text = popup_text.format(server_vars.POPUP_URL.format(ip), ip, host, success, marker.country, marker.continent, marker.location[0], marker.location[1], ip, ip)
     
     marker_color = database.get_color(db, curs, ip)
     

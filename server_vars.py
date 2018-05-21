@@ -1,7 +1,7 @@
 # MySQL database credentials
-DB_URL = "[secure]"
+DB_URL = "db.rootonyour.webcam"
 DB_USER = "web"
-DB_PASSWD = "[secure]"
+DB_PASSWD = "supersecretwebpasswd"
 DB_DATABASE = "log_mapper"
 
 # Marker colors based on attempt result
@@ -11,8 +11,14 @@ COL_STARRED = "#FFCC33"
 COL_DEFAULT = "#0066FF"
 
 # Where map files should be written
-MAP_LOCATION = "marker_map.html"
-HEATMAP_LOCATION = "heatmap.html"
+HTML_DIRECTORY = "res/html/"
+MAP_DIRECTORY = HTML_DIRECTORY + "maps/"
+MAP_LOCATION = MAP_DIRECTORY + "markers.html"
+HEATMAP_LOCATION = MAP_DIRECTORY + "heatmap.html"
+
+# URL that should be linked on a marker's popup window
+# Put {} in place of IP address.
+POPUP_URL = "/ip/{}"
 
 # Shodan API Key
-shodan_key = "[secure]"
+SHODAN_KEY = "YQDWZ9CaXIKLmZCtQtE0zbYZRFsWU1G4"
