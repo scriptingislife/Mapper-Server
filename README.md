@@ -9,9 +9,15 @@ The default log file is `auth.log` used for authentication, but any file with IP
 
 ## Installation
 
+### Clone the Repository
+
+Download or clone the repo anywhere. `https://github.com/becksteadn/Mapper-Server.git`
+
 ### Prerequisites
 
 Both the server and sensor require the MySQLdb connector. [Install it with yum on Amazon Linux](https://lazyprogrammer.me/installing-the-python-mysql-mysqldb-connector/) or Debian systems can  install it with apt using `sudo apt-get install python-mysqldb`.
+
+To install Python's dependencies run `pip install -r requirements.txt`.
 
 ### Database Configuration
 
@@ -29,11 +35,6 @@ CREATE TABLE markers (
 
 );
 ```
-
-### Clone the Repository
-
-Download or clone the repo anywhere. `https://github.com/becksteadn/Mapper-Server.git`
-
 
 ### Server Configuration
 All variables are in `server_vars.py`.
