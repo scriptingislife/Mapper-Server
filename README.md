@@ -21,6 +21,8 @@ To install Python's dependencies run `pip install -r requirements.txt`.
 
 ### Database Configuration
 
+Any SQL server will work. I use a MariaDB database using AWS's RDS service. Inside the `log_mapper` database the `attempts` table stores the IP and timestamp of all attempts. The `markers` table stores the unique IP addresses and whether it is starred or not. (Starring functionality coming soon.)
+
 ![](https://lambda.sx/m4g.png)
 
 Actual statements to come.
@@ -36,16 +38,22 @@ CREATE TABLE markers (
 );
 ```
 
+### Sensor Setup
+
+You should now set up the [log sensor](https://github.com/becksteadn/Log-Sensor) to get attempts into the database.
+
 ### Server Configuration
 All variables are in `server_vars.py`.
 
-Enter database credentials.
+Enter database IP or hostname and login credentials. It's strongly recommended to make individual users for the server and sensor. The server should have SELECT and UPDATE permissions.
 
 Add [Shodan](https://shodan.io) API key.
 
 ### Cron
 
+This cron job will create the map files every hour. As the user with the Mapper-Server code, start the editor with `crontab -e`.
 
+`0 * * * * cd ~/Mapper-Server && python draw_map.py`
 
 ### Daemon
 Edit variables in `mapper-server` service file.
