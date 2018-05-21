@@ -15,7 +15,12 @@ Download or clone the repo anywhere. `https://github.com/becksteadn/Mapper-Serve
 
 ### Prerequisites
 
-Both the server and sensor require the MySQLdb connector. [Install it with yum on Amazon Linux](https://lazyprogrammer.me/installing-the-python-mysql-mysqldb-connector/) or Debian systems can  install it with apt using `sudo apt-get install python-mysqldb`.
+Both the server and sensor require the MySQLdb connector.
+
+Amazon Linux can use `sudo yum install mysql-devel python-devel MySQL-python`.
+
+Debian systems can  install it with apt using `sudo apt-get install python-mysqldb`.
+
 
 To install Python's dependencies run `pip install -r requirements.txt`.
 
