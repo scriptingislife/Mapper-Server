@@ -30,11 +30,20 @@ Actual statements to come.
 ```
 CREATE DATABASE log_mapper;
 USE log_mapper;
+
 CREATE TABLE attempts (
-
+	id INT NOT NULL AUTO_INCREMENT,
+    host VARCHAR(20) DEFAULT 'Anonymous',
+    ip CHAR(15) NOT NULL,
+    stamp DATETIME NOT NULL UNIQUE,
+    success tinyint(4),
+    PRIMARY KEY (id, stamp)
 );
-CREATE TABLE markers (
 
+CREATE TABLE markers (
+	ip CHAR(15) NOT NULL,
+    starred tinyint(4),
+    PRIMARY KEY (ip)
 );
 ```
 
