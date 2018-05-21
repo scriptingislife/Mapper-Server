@@ -28,10 +28,6 @@ To install Python's dependencies run `pip install -r requirements.txt`.
 
 Any SQL server will work. I use a MariaDB database using AWS's RDS service. Inside the `log_mapper` database the `attempts` table stores the IP and timestamp of all attempts. The `markers` table stores the unique IP addresses and whether it is starred or not. (Starring functionality coming soon.)
 
-![](https://lambda.sx/m4g.png)
-
-Actual statements to come.
-
 ```
 CREATE DATABASE log_mapper;
 USE log_mapper;
