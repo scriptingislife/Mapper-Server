@@ -106,6 +106,7 @@ def make_marker(map_obj, ip):
                 Longitude: {}<br>
                 <a href=\"https://shodan.io/host/{}\" target=\"_blank\">Shodan</a><br>
                 <a href=\"https://www.censys.io/ipv4/{}\" target=\"_blank\">Censys</a><br>
+                <a href=\"https://www.talosintelligence.com/reputation_center/lookup?search={}\" target=\"_blank\">Talos</a><br>
                 """
     
     # TODO: Print debug message if a field in marker is None
