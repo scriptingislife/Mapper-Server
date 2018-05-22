@@ -110,7 +110,7 @@ def make_marker(map_obj, ip):
                 """
     
     # TODO: Print debug message if a field in marker is None
-    popup_text = popup_text.format(server_vars.POPUP_URL.format(ip), ip, host, success, marker.country, marker.continent, marker.location[0], marker.location[1], ip, ip)
+    popup_text = popup_text.format(server_vars.POPUP_URL.format(ip), ip, host, success, marker.country, marker.continent, marker.location[0], marker.location[1], ip, ip, ip)
     
     marker_color = database.get_color(db, curs, ip)
     
