@@ -7,6 +7,8 @@ When I saw a huge amount of failed login attempts in my SSH logs, I wanted a way
 
 The default log file is `auth.log` used for authentication, but any file with IP addresses can be used.
 
+![Mapper Infrastructure](Mapper-Infrastructure.png)
+
 ## Installation
 
 ### Clone the Repository
