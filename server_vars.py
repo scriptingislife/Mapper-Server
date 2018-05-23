@@ -1,5 +1,5 @@
 # MySQL database credentials
-DB_URL = "localhost"
+DB_URL = "mapperdb"
 DB_USER = "mapperserver"
 DB_PASSWD = "mapperserver"
 DB_DATABASE = "log_mapper"
