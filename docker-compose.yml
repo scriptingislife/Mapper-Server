@@ -3,7 +3,7 @@ services:
   mapperserver:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-server
     container_name: mapperserver
     ports:
       - "5000:5000"
