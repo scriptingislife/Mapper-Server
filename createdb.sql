@@ -14,3 +14,9 @@ CREATE TABLE log_mapper.markers (
     starred tinyint(4),
     PRIMARY KEY (ip)
 );
+
+CREATE USER 'mapperserver'@'localhost' IDENTIFIED BY 'serverpasswd';
+GRANT SELECT, UPDATE, DELETE ON log_mapper.* FROM 'mapperserver'@'localhost';
+
+CREATE USER 'sensor001'@'%' IDENTIFIED BY 'sensorpasswd';
+GRANT INSERT ON log_mapper.* FROM 'sensor001'@'&';
