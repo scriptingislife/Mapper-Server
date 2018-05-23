@@ -2,10 +2,12 @@
 
 FROM ubuntu:latest
 
-MAINTAINER becksteadn
-
 # Get code into container
 RUN mkdir /mapper-server
 COPY . /mapper-server
+
+# Install dependencies
+
+# Start server
 
 EXPOSE 5000
