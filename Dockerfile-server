@@ -1,6 +1,6 @@
 # Configure MariaDB and Log Mapper server.
 
-FROM mariadb:latest
+FROM ubuntu:latest
 
 MAINTAINER becksteadn
 
@@ -8,4 +8,4 @@ MAINTAINER becksteadn
 RUN mkdir /mapper-server
 COPY . /mapper-server
 
-EXPOSE 3306 5000
+EXPOSE 5000
