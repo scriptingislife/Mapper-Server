@@ -12,8 +12,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-db
-      args:
-        MYSQL_ROOT_PASSWORD: secret
     container_name: mapperdb
     ports:
       - "3306:3306"
