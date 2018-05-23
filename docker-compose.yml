@@ -1,12 +1,14 @@
 version: '3'
 services:
   mapperserver:
+    build: .
     dockerfile: Dockerfile
     container_name: mapperserver
     ports:
       - "5000:5000"
     
   mapperdb:
+    build: .
     dockerfile: Dockerfile-db
     container_name: mapperdb
     ports:
