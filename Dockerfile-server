@@ -15,6 +15,10 @@ pip3 install -r requirements.txt &&\
 apk del python3-dev mariadb-dev build-base &&\
 apk add mariadb-client-libs
 
+ADD crontab /etc/crontabs/root
+
+CMD python3 draw_map.py
+
 # Start server
 CMD python3 server.py
 
