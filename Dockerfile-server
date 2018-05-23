@@ -5,6 +5,7 @@ FROM python:alpine
 # Get code into container
 RUN mkdir /mapper-server
 COPY . /mapper-server
+WORKDIR /mapper-server
 
 # Install dependencies
 RUN apk update &&\
