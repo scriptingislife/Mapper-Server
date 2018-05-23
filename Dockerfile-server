@@ -1,13 +1,20 @@
 # Configure MariaDB and Log Mapper server.
 
-FROM ubuntu:latest
+FROM python:alpine
 
 # Get code into container
 RUN mkdir /mapper-server
 COPY . /mapper-server
 
 # Install dependencies
+RUN apk update &&\
+apk add python3 python3-dev mariadb-dev build-base &&\
+pip3 install mysqlclient &&\
+pip3 install -r requirements.txt &&\
+apk del python3-dev mariadb-dev build-base &&\
+apk add mariadb-client-libs
 
 # Start server
+CMD python3 server.py
 
 EXPOSE 5000
