@@ -1,5 +1,5 @@
 FROM mariadb:latest
 
-ADD create-db.sql /docker-entrypoint-initdb.d/create-db.sql
+ADD createdb.sql /docker-entrypoint-initdb.d/createdb.sql
 
 EXPOSE 3306
