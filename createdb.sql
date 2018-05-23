@@ -19,4 +19,4 @@ CREATE USER 'mapperserver'@'localhost' IDENTIFIED BY 'serverpasswd';
 GRANT SELECT, UPDATE, DELETE ON log_mapper.* TO 'mapperserver'@'localhost';
 
 CREATE USER 'sensor001'@'%' IDENTIFIED BY 'sensorpasswd';
-GRANT INSERT ON log_mapper.* TO 'sensor001'@'&';
+GRANT INSERT ON log_mapper.* TO 'sensor001'@'%';
