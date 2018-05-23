@@ -1,7 +1,7 @@
 # MySQL database credentials
-DB_URL = "db.rootonyour.webcam"
-DB_USER = "web"
-DB_PASSWD = "supersecretwebpasswd"
+DB_URL = "localhost"
+DB_USER = "mapperserver"
+DB_PASSWD = "mapperserver"
 DB_DATABASE = "log_mapper"
 
 # Marker colors based on attempt result
@@ -21,4 +21,4 @@ HEATMAP_LOCATION = MAP_DIRECTORY + "heatmap.html"
 POPUP_URL = "/ip/{}"
 
 # Shodan API Key
-SHODAN_KEY = "YQDWZ9CaXIKLmZCtQtE0zbYZRFsWU1G4"
+SHODAN_KEY = "[secure]"
