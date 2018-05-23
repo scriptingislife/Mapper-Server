@@ -1,0 +1,11 @@
+# Configure MariaDB and Log Mapper server.
+
+FROM mariadb:latest
+
+MAINTAINER becksteadn
+
+# Get code into container
+RUN mkdir /mapper-server
+COPY . /mapper-server
+
+EXPOSE 3306 5000
