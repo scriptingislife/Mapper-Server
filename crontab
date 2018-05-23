@@ -1,0 +1,1 @@
+0 * * * * cd ~/opt/mapperserver && python3 draw_map.py
