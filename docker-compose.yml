@@ -9,6 +9,8 @@ services:
       - "3306:3306"
 
   mapperserver:
+    links:
+      - mapperdb
     build:
       context: .
       dockerfile: Dockerfile-server
