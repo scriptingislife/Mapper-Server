@@ -15,8 +15,8 @@ CREATE TABLE log_mapper.markers (
     PRIMARY KEY (ip)
 );
 
-CREATE USER 'mapperserver'@'mapperserver' IDENTIFIED BY 'serverpasswd';
-GRANT SELECT, UPDATE, DELETE ON log_mapper.* TO 'mapperserver'@'mapperserver';
+CREATE USER 'mapperserver'@'%' IDENTIFIED BY 'serverpasswd';
+GRANT SELECT, UPDATE, DELETE ON log_mapper.* TO 'mapperserver'@'%';
 
 CREATE USER 'sensor001'@'%' IDENTIFIED BY 'sensorpasswd';
 GRANT INSERT ON log_mapper.* TO 'sensor001'@'%';

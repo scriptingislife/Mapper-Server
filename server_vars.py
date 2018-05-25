@@ -1,7 +1,7 @@
 # MySQL database credentials
 DB_URL = "mapperdb"
 DB_USER = "mapperserver"
-DB_PASSWD = "mapperserver"
+DB_PASSWD = "serverpasswd"
 DB_DATABASE = "log_mapper"
 
 # Marker colors based on attempt result

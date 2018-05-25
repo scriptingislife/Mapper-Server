@@ -16,6 +16,8 @@ apk del python3-dev mariadb-dev build-base &&\
 apk add mariadb-client-libs
 
 ADD . /mapper-server
+RUN mkdir /mapper-server/res/html/maps/
+
 ADD crontab /etc/crontabs/root
 
 CMD python3 draw_map.py
