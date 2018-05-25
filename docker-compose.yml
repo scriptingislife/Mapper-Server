@@ -5,15 +5,23 @@ services:
       context: .
       dockerfile: Dockerfile-db
     container_name: mapperdb
+    networks:
+        - mapperservs
     ports:
       - "3306:3306"
 
   mapperserver:
-    depends)on:
+    depends_on:
       - mapperdb
     build:
       context: .
       dockerfile: Dockerfile-server
     container_name: mapperserver
+    networks:
+        - mapperservs
     ports:
       - "5000:5000"
+
+networks:
+    mapperservs:
+        driver: bridge

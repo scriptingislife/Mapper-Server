@@ -1,6 +1,6 @@
 FROM mariadb:latest
 
-ARG MYSQL_ROOT_PASSWORD=secret
+ENV MYSQL_ROOT_PASSWORD secret
 ADD createdb.sql /docker-entrypoint-initdb.d/createdb.sql
 
 EXPOSE 3306

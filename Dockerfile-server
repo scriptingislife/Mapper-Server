@@ -4,7 +4,7 @@ FROM python:alpine
 
 # Get code into container
 RUN mkdir /mapper-server
-COPY . /mapper-server
+ADD ./requirements.txt /mapper-server/requirements.txt
 WORKDIR /mapper-server
 
 # Install dependencies
@@ -15,6 +15,7 @@ pip3 install -r requirements.txt &&\
 apk del python3-dev mariadb-dev build-base &&\
 apk add mariadb-client-libs
 
+ADD . /mapper-server
 ADD crontab /etc/crontabs/root
 
 CMD python3 draw_map.py
