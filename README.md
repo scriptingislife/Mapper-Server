@@ -15,6 +15,12 @@ The default log file is `auth.log` used for authentication, but any file with IP
 
 Download or clone the repo anywhere. `https://github.com/becksteadn/Mapper-Server.git`
 
+### Using Docker
+
+If you don't want to use Docker, skip to the Prerequisites section.
+
+Once in the git repo, just run `docker-compose up` to start the MariaDB and Mapper Server containers. They will link and the map website will be available at `[docker-ip]:5000`.
+
 ### Prerequisites
 
 Both the server and sensor require the MySQLdb connector.
