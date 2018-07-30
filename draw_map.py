@@ -51,7 +51,7 @@ def make_heatmap(map_obj):
         if marker is None or marker.location is None:
             print("Error with {}:{}".format(ip, attempts))
             continue
-       print("Adding {}:{} to map.".format(ip, attempts))
+        print("Adding {}:{} to map.".format(ip, attempts))
         if attempts > max_attempts[1]:
             max_attempts = (ip, attempts)
         #folium.CircleMarker(location=marker.location, radius=1, color=server_vars.COL_DEFAULT, fill=True).add_to(map_obj)
