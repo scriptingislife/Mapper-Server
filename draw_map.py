@@ -24,13 +24,16 @@ def draw():
     
     markers_map = folium.Map(location=[24.635246, 2.616971], zoom_start=3, tiles='CartoDB dark_matter')
     heatmap = folium.Map(location=[24.635246, 2.616971], zoom_start=3, tiles='CartoDB positron')
-    
+
+    heatmap = make_heatmap(heatmap)
+    heatmap.save(server_vars.HEATMAP_LOCATION)    
+
+    print("Heatmap done.")
 
     markers_map = make_markersmap(markers_map)
     markers_map.save(server_vars.MAP_LOCATION)
     
-    heatmap = make_heatmap(heatmap)
-    heatmap.save(server_vars.HEATMAP_LOCATION)
+    print("Markers done.")
     
     
 #
@@ -48,7 +51,7 @@ def make_heatmap(map_obj):
         if marker is None or marker.location is None:
             print("Error with {}:{}".format(ip, attempts))
             continue
-       # print("Adding {}:{} to map.".format(ip, attempts))
+       print("Adding {}:{} to map.".format(ip, attempts))
         if attempts > max_attempts[1]:
             max_attempts = (ip, attempts)
         #folium.CircleMarker(location=marker.location, radius=1, color=server_vars.COL_DEFAULT, fill=True).add_to(map_obj)
