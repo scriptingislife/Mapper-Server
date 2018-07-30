@@ -64,13 +64,15 @@ def make_heatmap(map_obj):
 def make_markersmap(map_obj):
     curs.execute("SELECT ip from log_mapper.markers ORDER BY INET_ATON(ip);")# ip ASC;")
     list_ips = curs.fetchall()
+    mc = plugins.MarkerCluster()
     for ip_tup in list_ips:
         if ip_tup[0] is None:
             continue
         try:
-            make_marker(map_obj, str(ip_tup[0]))
+            make_marker(mc, str(ip_tup[0]))
         except:
             print("[*] Error with IP: {}".format(ip_tup[0]))
+    map_obj.add_child(mc)
     return map_obj
     
     
